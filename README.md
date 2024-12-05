@@ -1,5 +1,5 @@
 # Adumanga Downloader
-![Adumanga Logo](https://github.com/Teknoist/Adumanga-Downloader/logo.png
+![Adumanga Logo](https://github.com/Teknoist/Adumanga-Downloader/logo.png)
 
 Bu uygulama, manga bölümlerini belirli bir URL'den indirip PDF formatında kaydetmenizi sağlar. Uygulama, bölümleri indirir, resimleri doğrular ve geçersiz JPEG dosyalarını PNG'ye dönüştürür.
 
