@@ -5,7 +5,21 @@
 
 Bu uygulama, manga bölümlerini belirli bir URL'den indirip PDF formatında kaydetmenizi sağlar. Uygulama, bölümleri indirir, resimleri doğrular ve geçersiz JPEG dosyalarını PNG'ye dönüştürür.
 
-## EXE Dosyası ile Kullanım
+# Adumanga Downloader - Kolay Kurulum ve Kullanım
+
+Merhaba Manga Severler!
+
+Terminal veya komut satırı kullanmak sizin için göz korkutucu mu? Merak etmeyin, Adumanga Downloader uygulamamızı kullanmak artık çok daha kolay. Sizler için hazırladığımız hazır EXE dosyası sayesinde, terminal komutlarıyla uğraşmadan, sadece birkaç tıklama ile manga indirmenin keyfini çıkarabilirsiniz.
+
+## Neden EXE Dosyası?
+
+EXE dosyası, uygulamamızı Windows ortamında kolayca çalıştırmanızı sağlar. Terminal komutları ve Python kurulumlarıyla uğraşmadan, doğrudan uygulamamızı kullanabilirsiniz. İşte EXE dosyasının sağladığı bazı avantajlar:
+
+- **Kolay Kurulum:** Python veya başka bir yazılım yüklemenize gerek yok. Tek yapmanız gereken EXE dosyasını indirip çalıştırmak.
+- **Kullanım Kolaylığı:** Terminal komutlarıyla uğraşmak yerine, kullanıcı dostu arayüzümüz ile manga URL'sini girip, bölümleri indirmenin keyfini çıkarın.
+- **Hızlı ve Güvenilir:** Adumanga Downloader, hızlı ve güvenilir bir şekilde manga bölümlerini indirir ve PDF formatında kaydeder.
+
+## Adım Adım EXE Dosyası ile Kullanım
 
 1. En son sürümü [Releases](https://github.com/Teknoist/Adumanga-Downloader/releases) kısmından indirin.
 2. İndirilen EXE dosyasını çalıştırın.
@@ -13,6 +27,11 @@ Bu uygulama, manga bölümlerini belirli bir URL'den indirip PDF formatında kay
 4. Başlangıç ve bitiş bölümlerini belirleyin.
 5. "İndir" butonuna tıklayın.
 6. İndirme işlemi tamamlandığında, PDF dosyaları belirttiğiniz dizinde oluşturulacaktır.
+
+## Ben Terminal Seven Biriyim Derseniz Buyrun Gerekli Tüm Bilgiler
+
+Terminal veya komut satırı kullanmayı sevmiyorsanız ya da bu konuda deneyimsizseniz, EXE dosyamız tam size göre! Sadece yukarıdaki adımları takip ederek manga indirme işlemini kolay ve hızlı bir şekilde tamamlayabilirsiniz.
+
 
 ## Gereksinimler
 
