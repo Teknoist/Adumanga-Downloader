@@ -10,7 +10,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 from fpdf import FPDF
-from PIL import Image  # PNG dönüşümü için Pillow kütüphanesini kullanacağız
+from PIL import Image
 
 def fetch_chapter_links(url):
     response = requests.get(url)
@@ -136,7 +136,14 @@ def fetch_chapters():
     total_chapters = len(chapters)
     label_chapters_count.configure(text=f"Toplam Bölüm Sayısı: {total_chapters}")
 
+def stop_download():
+    global stop_flag
+    stop_flag = True
+
 def start_download():
+    global stop_flag
+    stop_flag = False
+
     def download():
         manga_url = entry_url.get()
         manga_name = manga_url.strip('/').split('/')[-1]
@@ -157,7 +164,19 @@ def start_download():
         to_chapter = int(entry_to.get())
 
         with open('output.txt', 'r', encoding='utf-8') as file:
-            urls = file.readlines()[from_chapter-1:to_chapter]
+            urls = file.readlines()
+
+        selected_urls = []
+        for line in urls:
+            title, url = line.strip().split(': ')
+            chapter_num = title.split()[1].split('-')[0]
+            if from_chapter <= int(chapter_num) <= to_chapter:
+                if '-' in title.split()[1]:
+                    part_num = title.split()[1].split('-')[1]
+                    title = f"Bölüm {chapter_num}-p{part_num}"
+                else:
+                    title = f"Bölüm {chapter_num}"
+                selected_urls.append(f"{title}: {url}")
 
         button_download.configure(state="disabled")
         progress_bar.start()
@@ -165,7 +184,9 @@ def start_download():
         if not os.path.exists('temp'):
             os.makedirs('temp')
 
-        for i, line in enumerate(urls, start=1):
+        for i, line in enumerate(selected_urls, start=1):
+            if stop_flag:
+                break
             title, url = line.strip().split(': ')
             title = title.replace('Bölüm ', 'Bolum_').replace(' ', '_').replace(':', '').replace('"', '')
             output_pdf = os.path.join(manga_dir, f'{title}.pdf')
@@ -176,7 +197,7 @@ def start_download():
                 print(f"PDF already exists, skipping: {output_pdf}")
                 continue
 
-            label_status.configure(text=f"{i}. bölüm indiriliyor...")
+            label_status.configure(text=f"İndiriliyor: {title}")
             print(f"Processing {url.strip()}...")
             image_urls = fetch_image_urls(url.strip('"'))
             if not image_urls:
@@ -194,7 +215,7 @@ def start_download():
 
             if image_paths:
                 create_pdf(image_paths, output_pdf)
-                label_status.configure(text=f"{i}. bölüm PDF oluşturuldu: {output_pdf}")
+                label_status.configure(text=f"PDF oluşturuldu: {title}")
                 print(f"PDF başarıyla oluşturuldu: {output_pdf}")
             else:
                 print(f"No images were downloaded for {url.strip()}")
@@ -209,11 +230,12 @@ def start_download():
 # UI oluşturma
 app = ctk.CTk()
 app.title("Manga Downloader")
+app.protocol("WM_DELETE_WINDOW", stop_download)  # Pencere kapatıldığında durdurmayı etkinleştir
 
 frame = ctk.CTkFrame(master=app)
 frame.pack(pady=20, padx=60, fill="both", expand=True)
 
-label_title = ctk.CTkLabel(master=frame, text="Manga İndirme Aracı", font=("Arial", 24))
+label_title = ctk.CTkLabel(master=frame, text="Manga İndirme Aracı")
 label_title.pack(pady=12, padx=10)
 
 label_url = ctk.CTkLabel(master=frame, text="Manga URL:")
@@ -250,4 +272,3 @@ progress_bar = ctk.CTkProgressBar(master=frame)
 progress_bar.pack(pady=20, padx=10)
 
 app.mainloop()
-
